@@ -63,35 +63,35 @@ You should see Ubuntu with version 2.
    ```powershell
    wsl
    ```
-   You're now in Linux bash shell (prompt shows `user@computer:/mnt/c/...`)
+   You're now in Linux bash shell (prompt shows `user@computer:~`)
 
-3. **Navigate to project:**
+3. **Create virtual environment in your WSL home:**
+   ```bash
+   python3 -m venv ~/venv_linux
+   source ~/venv_linux/bin/activate
+   pip install --upgrade pip
+   ```
+
+4. **Navigate to project and install dependencies:**
    ```bash
    cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
+   pip install -r requirements.txt
    ```
-
-4. **Run setup script (installs everything automatically):**
-   ```bash
-   bash setup_wsl.sh
-   ```
-   This script will:
-   - Update Ubuntu packages
-   - Install Python 3 development tools
-   - Create `venv_linux` virtual environment
-   - Install all dependencies from `requirements.txt` (including healpy)
    
    **This takes 5-10 minutes. Wait for completion.**
 
 5. **Verify healpy is installed:**
    ```bash
-   source venv_linux/bin/activate
-   python -c "import healpy; print('healpy version:', healpy.__version__)"
+   python -c "import healpy; print('✓ healpy version:', healpy.__version__)"
    ```
-   You should see: `healpy version: 1.X.X`
+   You should see: `✓ healpy version: 1.19.0`
 
 ### Step 3: Use venv_linux for All Project Work
 
-**IMPORTANT:** Delete or ignore `venv39` and `venv310`. They can't run healpy. Use **only venv_linux in WSL2**.
+**IMPORTANT:** 
+- Virtual environment is stored in **`~/venv_linux`** (your WSL home directory)
+- This is faster and more reliable than storing on Windows mount
+- Activate it every session with: `source ~/venv_linux/bin/activate`
 
 ## How to Run
 
@@ -100,8 +100,12 @@ You should see Ubuntu with version 2.
 **Open PowerShell and run:**
 ```powershell
 wsl
+```
+
+**Then activate the environment:**
+```bash
+source ~/venv_linux/bin/activate
 cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
-source venv_linux/bin/activate
 ```
 
 After activation, your prompt will show: `(venv_linux) user@computer:...`
@@ -158,10 +162,17 @@ Edit files in VS Code on Windows, and they automatically sync with WSL.
 
 ## Virtual Environment Details
 
+**venv_linux location:** `~/venv_linux` (in your WSL home directory)
+
+**Why home directory?** 
+- Faster performance than Windows mount
+- Avoids WSL filesystem issues
+- More reliable venv creation and operation
+
 **venv_linux includes ALL packages from requirements.txt:**
 - ✅ Data: numpy, pandas, scipy, astropy
 - ✅ Plotting: matplotlib, pillow
-- ✅ **HEALPix: healpy** (why we need WSL2)
+- ✅ **HEALPix: healpy 1.19.0** (why we need WSL2)
 - ✅ Utilities: PyYAML, python-dateutil, etc.
 
 **You do NOT need to:**
