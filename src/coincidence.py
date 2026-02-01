@@ -1,24 +1,21 @@
-import pandas as pd
+import numpy as np
 
 
-def find_coincidences(dt=5):
-    """Find temporal coincidences between GW and GRB"""
-    gw = pd.read_csv("data/simulated_gw/trigger_times.csv")
-    grb = pd.read_csv("data/simulated_grb/trigger_times.csv")
+def angular_distance(ra1, dec1, ra2, dec2):
+    return np.arccos(
+        np.sin(dec1)*np.sin(dec2) +
+        np.cos(dec1)*np.cos(dec2)*np.cos(ra1 - ra2)
+    )
+
+
+def find_coincidences(gw, grb, dt, domega):
     coincidences = []
 
     for _, g in gw.iterrows():
         for _, r in grb.iterrows():
-            if abs(g["time"] - r["time"]) <= dt:
-                coincidences.append({"GW_time": g["time"], "GRB_time": r["time"],
-                                     "GW_RA": g["RA"], "GW_DEC": g["DEC"],
-                                     "GRB_RA": r["RA"], "GRB_DEC": r["DEC"]})
+            if abs(g.time_gps - r.time_gps) < dt:
+                ang = angular_distance(g.ra, g.dec, r.ra, r.dec)
+                if ang < domega:
+                    coincidences.append((g.time_gps, r.time_gps, ang))
 
-    df = pd.DataFrame(coincidences)
-    df.to_csv("data/coincidences.csv", index=False)
-    print(f"{len(coincidences)} coincidences found within {dt} seconds.")
-    return df
-
-
-if __name__ == "__main__":
-    find_coincidences()
+    return coincidences
