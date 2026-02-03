@@ -29,6 +29,19 @@ cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
 
 ## 🔧 Common Commands
 
+### Run the full pipeline (simulations + analysis + plots):
+```bash
+bash run_pipeline.sh
+```
+This will run:
+- `src/simulate_grb.py`
+- `src/simulate_gw.py`
+- `src/coincidence.py`
+- `src/statistics.py`
+- `src/plotting.py`
+
+Figures are saved to: `figures/`
+
 ### Run simulations:
 ```bash
 python src/simulate_grb.py
