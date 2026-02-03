@@ -1,130 +1,125 @@
-# Quick Start Guide - GW-GRB Joint Analysis
+﻿# Quick Start Guide - GW-GRB Joint Analysis
 
-## ⚡ Fast Setup (Already Done!)
-
-Your environment is ready. **Healpy 1.19.0 is installed and working.**
+## Fast Setup (already done)
+Your environment is ready. Healpy 1.19.0 is installed and working.
 
 ---
 
-## 🚀 Every Time You Work
+## Every Time You Work
 
-### 1. Enter WSL from Windows PowerShell:
+1. Enter WSL from Windows PowerShell:
 ```powershell
 wsl
 ```
 
-### 2. Activate Python environment:
+2. Activate Python environment:
 ```bash
 source ~/venv_linux/bin/activate
 ```
+Your prompt will show `(venv_linux) user@computer:~$`.
 
-Your prompt will show: `(venv_linux) extenn@NextGen:~$`
-
-### 3. Go to project:
+3. Go to the project:
 ```bash
 cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
 ```
 
 ---
 
-## 🔧 Common Commands
+## Common Commands
 
-### Run the full pipeline (simulations + analysis + plots):
+### Run the full pipeline (simulations + analysis + plots)
 ```bash
 bash run_pipeline.sh
 ```
-This will run:
+This runs:
 - `src/simulate_grb.py`
 - `src/simulate_gw.py`
 - `src/coincidence.py`
 - `src/statistics.py`
 - `src/plotting.py`
 
-Figures are saved to: `figures/`
+Figures are saved to `figures/`.
 
-### Run simulations:
+### Run simulations only
 ```bash
 python src/simulate_grb.py
 python src/simulate_gw.py
 python src/coincidence.py
 ```
 
-### Run Jupyter notebook:
+### Run Jupyter notebook
 ```bash
 jupyter notebook notebooks/exploratory_analysis.ipynb
 ```
 
-### Check package versions:
+### Check package versions
 ```bash
 pip list | grep -E "healpy|numpy|pandas"
 ```
 
-### Deactivate environment:
+### Deactivate environment
 ```bash
 deactivate
 ```
 
-### Exit WSL back to Windows:
+### Exit WSL back to Windows
 ```bash
 exit
 ```
 
 ---
 
-## 🎯 Environment Location
-
-- **Virtual Environment:** `~/venv_linux` (in WSL home directory)
-- **Project Files:** `/mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis`
-- **Notebooks:** `/mnt/c/.../gw-grb-joint-analysis/notebooks/`
-
----
-
-## ✅ Verified Working
-
-- ✅ Python 3.12.3
-- ✅ Healpy 1.19.0
-- ✅ Numpy 1.26.4
-- ✅ Pandas 2.3.3
-- ✅ Scipy 1.13.1
-- ✅ Matplotlib 3.9.4
-- ✅ Astropy 6.0.1
+## Environment Location
+- Virtual environment: `~/venv_linux`
+- Project files: `/mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis`
+- Notebooks: `/mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis/notebooks/`
 
 ---
 
-## 💡 Pro Tips
+## Verified Working
+- Python 3.12.3
+- Healpy 1.19.0
+- Numpy 1.26.4
+- Pandas 2.3.3
+- Scipy 1.13.1
+- Matplotlib 3.9.4
+- Astropy 6.0.1
 
-### Create an alias for faster activation:
+---
+
+## Pro Tips
+
+### Create an alias for faster activation
 ```bash
 echo "alias proj='cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis && source ~/venv_linux/bin/activate'" >> ~/.bashrc
 source ~/.bashrc
 ```
+Then just type: `proj`.
 
-Then just type: `proj`
-
-### Check if environment is active:
+### Check if environment is active
 ```bash
 which python  # Should show ~/venv_linux/bin/python
 ```
 
-### List all installed packages:
+### List all installed packages
 ```bash
 pip list
 ```
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
-**Q: `command not found: source`**
-A: Make sure you're in WSL bash, not PowerShell
+Q: `command not found: source`
+A: Make sure you are in WSL bash, not PowerShell.
 
-**Q: `ModuleNotFoundError: No module named healpy`**
-A: Activate environment: `source ~/venv_linux/bin/activate`
+Q: `ModuleNotFoundError: No module named healpy`
+A: Activate the environment: `source ~/venv_linux/bin/activate`.
 
-**Q: Terminal frozen?**
-A: Press `Ctrl+C`, then close WSL and open new PowerShell window with `wsl`
+Q: Terminal frozen?
+A: Press `Ctrl+C`, then close WSL and open a new PowerShell window with `wsl`.
 
 ---
 
-**Last Updated:** 2026-02-01
-**Status:** ✅ Ready for development
+Last Updated: 2026-02-03
+Status: Ready for development
