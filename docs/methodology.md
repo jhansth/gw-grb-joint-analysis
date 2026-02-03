@@ -6,16 +6,11 @@ This project simulates gravitational-wave (GW) and gamma-ray burst (GRB) trigger
 ## Simulation
 - GW triggers are simulated in `src/simulate_gw.py`.
 - GRB triggers are simulated in `src/simulate_grb.py`.
-- Each trigger includes:
-  - `time_gps`: trigger time in GPS seconds
-  - `ra`, `dec`: sky location in radians
-  - `snr` (GW) or `fluence` (GRB)
+- Each trigger includes `time_gps` (GPS seconds), `ra`/`dec` (radians), and `snr` (GW) or `fluence` (GRB).
 - RA is drawn uniformly in `[0, 2*pi]` and Dec in `[-pi/2, pi/2]`.
 
 ## Coincidence Test
-- Coincidences are evaluated in `src/coincidence.py` using:
-  - Time window: `DELTA_T` seconds
-  - Sky window: `DELTA_OMEGA` radians
+- Coincidences are evaluated in `src/coincidence.py` using time window `DELTA_T` seconds and sky window `DELTA_OMEGA` radians.
 - Angular separation is computed via spherical cosine law.
 - A pair is coincident if both time and angular thresholds are satisfied.
 
