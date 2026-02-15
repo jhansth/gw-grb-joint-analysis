@@ -3,6 +3,10 @@
 Simulated joint analysis of gravitational-wave (GW) and gamma-ray burst (GRB) events using coincidence statistics.
 
 ## Project Overview
+
+## New: Full Repository Tour
+If you are new to the project, start with `docs/REPOSITORY_TOUR.md` for a beginner-friendly walkthrough of all folders and source files.
+
 This project simulates GW and GRB trigger populations and performs a basic joint analysis using temporal and spatial coincidence tests. The goal is to build a conceptual understanding of multimessenger pipelines.
 
 ## Objectives
