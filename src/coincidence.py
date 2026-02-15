@@ -45,6 +45,9 @@ def build_coincidence_table(gw, grb, dt, domega):
     return pd.DataFrame(rows, columns=columns)
 
 
+
+
+
 def main():
     gw_path = Path("data/simulated/gw_triggers.csv")
     grb_path = Path("data/simulated/grb_triggers.csv")
