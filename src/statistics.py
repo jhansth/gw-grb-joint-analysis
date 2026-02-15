@@ -1,8 +1,7 @@
-from pathlib import Path
+﻿from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
 
 import config
 
@@ -28,8 +27,36 @@ def compute_summary_stats(gw, grb, coincidences):
         stats["mean_angular_sep_rad"] = None
         stats["max_angular_sep_rad"] = None
 
+    if len(coincidences) > 0 and "rank_lambda" in coincidences.columns:
+        lambdas = coincidences["rank_lambda"].replace([np.inf, -np.inf], np.nan).dropna()
+        if len(lambdas) > 0:
+            stats["mean_rank_lambda"] = float(np.mean(lambdas))
+            stats["max_rank_lambda"] = float(np.max(lambdas))
+        else:
+            stats["mean_rank_lambda"] = None
+            stats["max_rank_lambda"] = None
+
+        if "p_H1_D" in coincidences.columns:
+            p_h1 = coincidences["p_H1_D"].replace([np.inf, -np.inf], np.nan).dropna()
+            if len(p_h1) > 0:
+                stats["mean_p_H1"] = float(np.mean(p_h1))
+                stats["max_p_H1"] = float(np.max(p_h1))
+            else:
+                stats["mean_p_H1"] = None
+                stats["max_p_H1"] = None
+    else:
+        stats["mean_rank_lambda"] = None
+        stats["max_rank_lambda"] = None
+        stats["mean_p_H1"] = None
+        stats["max_p_H1"] = None
+
     stats["DELTA_T_seconds"] = config.DELTA_T
     stats["DELTA_OMEGA_rad"] = config.DELTA_OMEGA
+    stats["PRIOR_HNN"] = config.PRIOR_HNN
+    stats["PRIOR_HSN"] = config.PRIOR_HSN
+    stats["PRIOR_HNS"] = config.PRIOR_HNS
+    stats["PRIOR_HSS"] = config.PRIOR_HSS
+    stats["PRIOR_HC"] = config.PRIOR_HC
     return stats
 
 
@@ -50,9 +77,21 @@ def write_summary(path, stats):
         f"mean_angular_sep_rad = {fmt(stats.get('mean_angular_sep_rad'))}",
         f"max_angular_sep_rad = {fmt(stats.get('max_angular_sep_rad'))}",
         "",
+        f"mean_rank_lambda = {fmt(stats.get('mean_rank_lambda'))}",
+        f"max_rank_lambda = {fmt(stats.get('max_rank_lambda'))}",
+        f"mean_p_H1 = {fmt(stats.get('mean_p_H1'))}",
+        f"max_p_H1 = {fmt(stats.get('max_p_H1'))}",
+        "",
         "# Coincidence thresholds",
         f"DELTA_T_seconds = {fmt(stats.get('DELTA_T_seconds'))}",
         f"DELTA_OMEGA_rad = {fmt(stats.get('DELTA_OMEGA_rad'))}",
+        "",
+        "# Hypothesis priors",
+        f"PRIOR_HNN = {fmt(stats.get('PRIOR_HNN'))}",
+        f"PRIOR_HSN = {fmt(stats.get('PRIOR_HSN'))}",
+        f"PRIOR_HNS = {fmt(stats.get('PRIOR_HNS'))}",
+        f"PRIOR_HSS = {fmt(stats.get('PRIOR_HSS'))}",
+        f"PRIOR_HC = {fmt(stats.get('PRIOR_HC'))}",
         ""
     ]
 
@@ -72,7 +111,19 @@ def main():
     if coinc_path.exists():
         coincidences = pd.read_csv(coinc_path)
     else:
-        coincidences = pd.DataFrame(columns=["gw_event_id", "grb_event_id", "gw_time", "grb_time", "angle_rad"])
+        coincidences = pd.DataFrame(
+            columns=[
+                "gw_event_id",
+                "grb_event_id",
+                "gw_time",
+                "grb_time",
+                "delta_t",
+                "angle_rad",
+                "rank_lambda",
+                "p_H0_D",
+                "p_H1_D"
+            ]
+        )
 
     stats = compute_summary_stats(gw, grb, coincidences)
     write_summary(out_path, stats)
