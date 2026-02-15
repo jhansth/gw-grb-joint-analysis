@@ -3,6 +3,52 @@
 ## Overview
 This project simulates gravitational-wave (GW) and gamma-ray burst (GRB) trigger populations, then applies simple temporal and spatial coincidence tests to identify joint candidates.
 
+## Math and Assumptions
+This section maps the paper-style framework to what is implemented in the code.
+
+Assumptions
+- Triggers are point estimates (single time, single sky position).
+- GW SNR and GRB fluence are simulated from simple distributions, not measured from data.
+- Overlap integrals are approximated with Gaussian kernels in time and sky.
+- Noise rates are estimated from the simulated time span.
+
+Core definitions
+- Data for one candidate is D = {x_gw, x_grb}.
+- Time separation: delta_t = |t_gw - t_grb|.
+- Angular separation (spherical cosine law):
+  theta = arccos(sin(dec1) sin(dec2) + cos(dec1) cos(dec2) cos(ra1 - ra2)).
+- Coincidence thresholds: delta_t < DELTA_T and theta < DELTA_OMEGA.
+
+Signal overlap kernel
+- I_t = exp(-0.5 * (delta_t / SIGMA_T)^2)
+- I_omega = exp(-0.5 * (theta / SIGMA_OMEGA)^2)
+- I_theta = I_t * I_omega
+
+Signal likelihood proxies
+- p_gw_signal = Normal(snr; SNR_SIGNAL_MU, SNR_SIGNAL_SIGMA)
+- p_grb_signal = LogNormal(fluence; FLUENCE_LOGNORM_MU, FLUENCE_LOGNORM_SIGMA)
+
+Noise rates and geometry
+- T = max(time) - min(time)
+- R_gw = N_gw / T
+- R_grb = N_grb / T
+- p_sky_noise = DELTA_OMEGA / (4 * pi)
+- p_time_noise = DELTA_T / T
+
+Hypothesis likelihoods
+- H_nn: p(D|H_nn) = (R_gw * DELTA_T) * (R_grb * DELTA_T) * p_sky_noise
+- H_sn: p(D|H_sn) = p_gw_signal * (R_grb * DELTA_T) * p_sky_noise
+- H_ns: p(D|H_ns) = (R_gw * DELTA_T) * p_sky_noise * p_grb_signal
+- H_ss: p(D|H_ss) = p_gw_signal * p_grb_signal * p_time_noise * p_sky_noise
+- H_C:  p(D|H_C)  = p_gw_signal * p_grb_signal * I_theta
+
+Priors and ranking
+- p(D|H_0) = sum_i p(D|H_i) * PRIOR_Hi for i in {nn, sn, ns, ss}
+- p(D|H_1) = p(D|H_C) * PRIOR_HC
+- Lambda = p(D|H_1) / p(D|H_0)
+- p(H_0|D) = 1 / (1 + Lambda)
+- p(H_1|D) = Lambda / (1 + Lambda)
+
 ## Simulation
 - GW triggers are simulated in `src/simulate_gw.py`.
 - GRB triggers are simulated in `src/simulate_grb.py`.
