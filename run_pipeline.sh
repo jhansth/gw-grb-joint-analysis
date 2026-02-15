@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -23,5 +23,6 @@ python src/simulate_gw.py
 python src/coincidence.py
 python src/statistics.py
 python src/plotting.py
+python src/analysis_plots.py
 
 echo "Pipeline complete. Figures saved to $ROOT_DIR/figures"
