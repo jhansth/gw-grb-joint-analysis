@@ -37,6 +37,7 @@ This runs:
 - `src/coincidence.py`
 - `src/statistics.py`
 - `src/plotting.py`
+- `src/analysis_plots.py`
 
 Figures are saved to `figures/`.
 
@@ -51,6 +52,14 @@ python src/coincidence.py
 ```bash
 jupyter notebook notebooks/exploratory_analysis.ipynb
 ```
+
+### Analysis plots
+`src/analysis_plots.py` creates additional figures in `figures/`:
+- `analysis_delta_t_hist.png`: histogram of time offsets (Delta t)
+- `analysis_angle_hist.png`: histogram of angular separation (theta)
+- `analysis_rank_lambda_hist.png`: histogram of log10 Lambda ranking statistic
+- `analysis_pH1_hist.png`: histogram of posterior signal probability p(H1 | D)
+- `analysis_dt_vs_angle.png`: scatter of Delta t versus angular separation
 
 ### Check package versions
 ```bash
