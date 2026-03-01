@@ -1,10 +1,21 @@
 from pathlib import Path
+import logging
 
 import numpy as np
 import pandas as pd
 
 
 def simulate_grb_events(n=500, t0=1.126e9):
+    """Simulate GRB triggers with simple distributions.
+
+    Args:
+        n: number of simulated events.
+        t0: GPS start time (seconds).
+
+    Returns:
+        DataFrame with columns: event_id, time_gps, fluence, ra, dec.
+        ra/dec are in radians and fluence is in arbitrary units.
+    """
     times = t0 + np.sort(np.random.uniform(0, 1e4, n))
     fluence = np.random.lognormal(-7, 0.5, n)
     ra = np.random.uniform(0, 2*np.pi, n)
@@ -22,13 +33,14 @@ def simulate_grb_events(n=500, t0=1.126e9):
 
 
 def main():
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     out_dir = Path("data/simulated")
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "grb_triggers.csv"
 
     df = simulate_grb_events()
     df.to_csv(out_path, index=False)
-    print(f"Saved GRB triggers to {out_path}")
+    logging.info("Saved GRB triggers to %s", out_path)
 
 
 if __name__ == "__main__":

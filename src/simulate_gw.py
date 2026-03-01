@@ -1,10 +1,21 @@
 from pathlib import Path
+import logging
 
 import numpy as np
 import pandas as pd
 
 
 def simulate_gw_events(n=1000, t0=1.126e9):
+    """Simulate GW triggers with simple distributions.
+
+    Args:
+        n: number of simulated events.
+        t0: GPS start time (seconds).
+
+    Returns:
+        DataFrame with columns: event_id, time_gps, snr, ra, dec.
+        ra/dec are in radians and snr is dimensionless.
+    """
     times = t0 + np.sort(np.random.uniform(0, 1e4, n))
     snr = np.random.normal(10, 2, n)
     ra = np.random.uniform(0, 2*np.pi, n)
@@ -22,13 +33,14 @@ def simulate_gw_events(n=1000, t0=1.126e9):
 
 
 def main():
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     out_dir = Path("data/simulated")
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "gw_triggers.csv"
 
     df = simulate_gw_events()
     df.to_csv(out_path, index=False)
-    print(f"Saved GW triggers to {out_path}")
+    logging.info("Saved GW triggers to %s", out_path)
 
 
 if __name__ == "__main__":
