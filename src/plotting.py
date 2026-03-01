@@ -30,6 +30,13 @@ def density_map(theta, phi, nside=DEFAULT_NSIDE):
     return m
 
 
+def normalize_map(m):
+    total = np.sum(m)
+    if total <= 0:
+        return m
+    return m / total
+
+
 def save_mollview(m, title, outpath, unit="counts"):
     hp.mollview(m, title=title, unit=unit)
     hp.graticule()
@@ -79,8 +86,27 @@ def main():
     grb_df, grb_theta, grb_phi = load_triggers("data/simulated/grb_triggers.csv")
 
     # 1) Combined density map (GW + GRB)
-    m_total = density_map(gw_theta, gw_phi) + density_map(grb_theta, grb_phi)
+    m_gw = density_map(gw_theta, gw_phi)
+    m_grb = density_map(grb_theta, grb_phi)
+    m_total = m_gw + m_grb
     save_mollview(m_total, "GW + GRB Triggers (density)", FIG_DIR / "gw_grb_density.png")
+
+    # 1a) Individual density maps
+    save_mollview(m_gw, "GW Triggers (density)", FIG_DIR / "gw_density.png")
+    save_mollview(m_grb, "GRB Triggers (density)", FIG_DIR / "grb_density.png")
+
+    # 1b) Joint/overlap map using normalized density product
+    gw_prob = normalize_map(m_gw)
+    grb_prob = normalize_map(m_grb)
+    overlap = gw_prob * grb_prob
+    if np.sum(overlap) > 0:
+        overlap = overlap / np.sum(overlap)
+    save_mollview(
+        overlap,
+        "GW x GRB Overlap (normalized product)",
+        FIG_DIR / "gw_grb_overlap.png",
+        unit="probability"
+    )
 
     # 2) Points colored by SNR / fluence
     if "snr" in gw_df.columns:
