@@ -138,6 +138,7 @@ python src/coincidence.py
 python src/statistics.py
 python src/plotting.py
 python src/analysis_plots.py
+python src/overlap_skymap.py --gw-map path/to/gw_skymap.fits --grb-map path/to/grb_skymap.fits
 ```
 
 Run the notebook
