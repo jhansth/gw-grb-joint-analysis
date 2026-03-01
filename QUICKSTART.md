@@ -1,7 +1,16 @@
-﻿# Quick Start Guide - GW-GRB Joint Analysis
+# Quick Start Guide - GW-GRB Joint Analysis
 
-## Fast Setup (already done)
-Your environment is ready. Healpy 1.19.0 is installed and working.
+## 60-Second Run
+```powershell
+wsl
+```
+```bash
+source ~/venv_linux/bin/activate
+cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
+bash run_pipeline.sh
+```
+
+Outputs appear in `data/` and `figures/`.
 
 ---
 
@@ -41,6 +50,11 @@ This runs:
 
 Figures are saved to `figures/`.
 
+### Run the pipeline in Python (optional)
+```bash
+python -m src.pipeline --n-gw 1000 --n-grb 500 --seed 123
+```
+
 ### Run simulations only
 ```bash
 python src/simulate_grb.py
@@ -60,6 +74,16 @@ jupyter notebook notebooks/exploratory_analysis.ipynb
 - `analysis_rank_lambda_hist.png`: histogram of log10 Lambda ranking statistic
 - `analysis_pH1_hist.png`: histogram of posterior signal probability p(H1 | D)
 - `analysis_dt_vs_angle.png`: scatter of Delta t versus angular separation
+
+### Sky plots
+`src/plotting.py` creates sky localization figures in `figures/`:
+- `gw_grb_density.png`: combined density map
+- `gw_density.png`: GW-only density map
+- `grb_density.png`: GRB-only density map
+- `gw_grb_overlap.png`: overlap map (normalized density product)
+- `gw_points_snr.png`: GW points colored by SNR
+- `grb_points_fluence.png`: GRB points colored by fluence
+- `gw_grb_publication.png`: combined GW+GRB points
 
 ### Check package versions
 ```bash
@@ -130,5 +154,5 @@ A: Press `Ctrl+C`, then close WSL and open a new PowerShell window with `wsl`.
 
 ---
 
-Last Updated: 2026-02-03
+Last Updated: 2026-03-01
 Status: Ready for development

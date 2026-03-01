@@ -1,4 +1,4 @@
-﻿# GW_GRB_Joint_Simulation
+# GW_GRB_Joint_Simulation
 
 Simulated joint analysis of gravitational-wave (GW) and gamma-ray burst (GRB) events using coincidence statistics.
 
@@ -10,6 +10,18 @@ This project simulates GW and GRB trigger populations and performs a basic joint
 - Implement temporal and spatial coincidence tests
 - Compute joint ranking statistics and simple summary outputs
 - Build conceptual understanding of multimessenger pipelines
+
+## At a Glance
+- Inputs: simulated GW/GRB trigger CSVs with time and sky position
+- Outputs: coincidence table, summary stats, and sky/analysis plots
+- Config: thresholds and priors live in `src/config.py`
+- Data flow:
+```text
+simulate_gw.py + simulate_grb.py
+  -> coincidence.py
+  -> statistics.py
+  -> plotting.py + analysis_plots.py
+```
 
 ## Status
 Simulation-only, private research repository.
@@ -24,6 +36,16 @@ Simulation-only, private research repository.
 - `docs/`: documentation
 - `requirements.txt`: Python dependencies
 - `.gitignore`: Git ignore rules
+
+## Outputs
+Full output reference lives in `docs/OUTPUTS.md`.
+
+Key files:
+- `data/simulated/gw_triggers.csv`
+- `data/simulated/grb_triggers.csv`
+- `data/results/coincident_events.csv`
+- `data/results/summary_stats.txt`
+- `figures/`
 
 ## Setup (Windows with WSL2 - required)
 
@@ -101,6 +123,11 @@ cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
 Run the full pipeline (simulations + analysis + plots)
 ```bash
 bash run_pipeline.sh
+```
+
+Run the pipeline in Python (optional)
+```bash
+python -m src.pipeline --n-gw 1000 --n-grb 500 --seed 123
 ```
 
 Run individual scripts
