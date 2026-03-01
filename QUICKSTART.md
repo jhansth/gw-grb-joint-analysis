@@ -85,6 +85,14 @@ jupyter notebook notebooks/exploratory_analysis.ipynb
 - `grb_points_fluence.png`: GRB points colored by fluence
 - `gw_grb_publication.png`: combined GW+GRB points
 
+### Overlap from real HEALPix sky maps (FITS)
+```bash
+python src/overlap_skymap.py --gw-map path/to/gw_skymap.fits --grb-map path/to/grb_skymap.fits
+```
+Outputs:
+- `figures/gw_grb_overlap_fits.png`
+- `data/results/gw_grb_overlap_map.fits`
+
 ### Check package versions
 ```bash
 pip list | grep -E "healpy|numpy|pandas"
