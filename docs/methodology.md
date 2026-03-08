@@ -3,6 +3,10 @@
 ## Overview
 This project simulates gravitational-wave (GW) and gamma-ray burst (GRB) trigger populations, then applies simple temporal and spatial coincidence tests to identify joint candidates.
 
+## Related docs
+- `docs/DATA_FLOW.md`: pipeline overview and assumptions
+- `docs/GLOSSARY.md`: terms and units
+
 ## Math and Assumptions
 This section maps the paper-style framework to what is implemented in the code.
 

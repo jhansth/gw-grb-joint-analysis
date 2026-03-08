@@ -22,6 +22,7 @@ simulate_gw.py + simulate_grb.py
   -> statistics.py
   -> plotting.py + analysis_plots.py
 ```
+Detailed diagram and assumptions are in `docs/DATA_FLOW.md`.
 
 ## Status
 Simulation-only, private research repository.
@@ -46,6 +47,13 @@ Key files:
 - `data/results/coincident_events.csv`
 - `data/results/summary_stats.txt`
 - `figures/`
+
+## Documentation Map
+- `docs/DATA_FLOW.md`: one-page data flow and assumptions
+- `docs/OUTPUTS.md`: output fields and example rows
+- `docs/GLOSSARY.md`: terms and units
+- `docs/REAL_DATA.md`: how to use real GW and GRB catalogs
+- `docs/methodology.md`: formulas and mapping to code
 
 ## Setup (Windows with WSL2 - required)
 
