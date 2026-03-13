@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 
-def simulate_gw_events(n=1000, t0=1.126e9):
+def simulate_gw_events(n=100, t0=1.126e9):
     """Simulate GW triggers with simple distributions.
 
     Args:
