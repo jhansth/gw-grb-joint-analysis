@@ -18,11 +18,18 @@ from src import config
 
 
 def angular_distance(ra1, dec1, ra2, dec2):
-    """Great-circle angular separation (radians)."""
-    return np.arccos(
-        np.sin(dec1) * np.sin(dec2)
-        + np.cos(dec1) * np.cos(dec2) * np.cos(ra1 - ra2)
-    )
+    """
+    Great-circle angular separation (radians).
+    Numerically stable for all separations including near 0 and pi.
+    Inputs must be in radians.
+    """
+    delta_ra = ra1 - ra2
+
+    x = np.cos(dec2) * np.sin(delta_ra)
+    y = np.cos(dec1) * np.sin(dec2) - np.sin(dec1) * np.cos(dec2) * np.cos(delta_ra)
+    z = np.sin(dec1) * np.sin(dec2) + np.cos(dec1) * np.cos(dec2) * np.cos(delta_ra)
+
+    return np.arctan2(np.sqrt(x**2 + y**2), z)
 
 
 def normal_pdf(x, mu, sigma):
