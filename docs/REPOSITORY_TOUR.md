@@ -18,7 +18,6 @@ The project is simulation-oriented and focused on conceptual multimessenger anal
 - `QUICKSTART.md`: Short command-first startup guide.
 - `WSL2_SETUP.md`: Extra setup guidance for Windows+WSL2 users.
 - `PROJECT_STATUS.md`: Cleanup/status snapshot of the repository.
-- `CLEANUP_REPORT.md`: Earlier cleanup audit and recommendations.
 - `requirements.txt`: Python dependencies.
 - `setup_wsl.sh`: Script to initialize a WSL environment.
 - `run_pipeline.sh`: Shell script to run the full pipeline.
