@@ -26,7 +26,7 @@ def simulate_gw_events(n=52, t0=1.126e9):
         DataFrame with columns: event_id, time_gps, snr, ra, dec.
         ra/dec are in radians and snr is dimensionless.
     """
-    times = t0 + np.sort(np.random.uniform(0, 1e4, n))
+    times = t0 + np.sort(np.random.uniform(0, 365*24*3600, n))
     snr = np.random.normal(10, 2, n)
     ra = np.random.uniform(0, 2*np.pi, n)
     dec = np.random.uniform(-np.pi/2, np.pi/2, n)
