@@ -207,9 +207,5 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-data/simulated/
-data/results/*.csv
-data/results/*.npy
-figures/*.png
-src/coincidence_original.py
-gw_grb/
+
+figures/
