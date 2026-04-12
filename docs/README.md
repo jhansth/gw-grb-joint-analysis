@@ -8,3 +8,4 @@ Recommended reading order:
 3. `GLOSSARY.md`
 4. `methodology.md`
 5. `REAL_DATA.md`
+6. `REPOSITORY_TOUR.md`
