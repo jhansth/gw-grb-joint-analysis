@@ -1,3 +1,14 @@
+"""Compute summary statistics for the current run.
+
+Inputs:
+- data/simulated/gw_triggers.csv
+- data/simulated/grb_triggers.csv
+- data/results/coincident_events.csv
+
+Outputs:
+- data/results/summary_stats.txt
+"""
+
 from pathlib import Path
 import logging
 

@@ -1,4 +1,6 @@
-﻿# Time coincidence window (seconds)
+"""Central configuration for thresholds, distributions, and priors."""
+
+# Time coincidence window (seconds)
 DELTA_T = 5.0
 
 # Sky coincidence threshold (radians)

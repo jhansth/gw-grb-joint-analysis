@@ -1,3 +1,13 @@
+"""Simulate GW trigger events and write them to CSV.
+
+Inputs:
+- n: number of simulated GW events
+- t0: starting GPS time in seconds
+
+Outputs:
+- data/simulated/gw_triggers.csv
+"""
+
 from pathlib import Path
 import logging
 

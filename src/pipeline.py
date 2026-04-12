@@ -1,3 +1,14 @@
+"""One-command pipeline for simulation, coincidence, stats, and plots.
+
+Inputs:
+- command line flags (n-gw, n-grb, seed, t0)
+
+Outputs:
+- data/simulated/*.csv
+- data/results/*.csv and *.txt
+- figures/*.png
+"""
+
 import argparse
 import logging
 from pathlib import Path

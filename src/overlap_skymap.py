@@ -1,3 +1,14 @@
+"""Compute overlap between two HEALPix FITS sky maps.
+
+Inputs:
+- GW FITS sky map
+- GRB FITS sky map
+
+Outputs:
+- data/results/gw_grb_overlap_map.fits
+- figures/gw_grb_overlap_fits.png
+"""
+
 import argparse
 import logging
 from pathlib import Path

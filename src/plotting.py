@@ -1,3 +1,13 @@
+"""Generate sky localization plots from simulated triggers.
+
+Inputs:
+- data/simulated/gw_triggers.csv
+- data/simulated/grb_triggers.csv
+
+Outputs:
+- figures/*.png (sky maps and point plots)
+"""
+
 import logging
 from pathlib import Path
 

@@ -1,3 +1,12 @@
+"""Generate analysis plots from coincidence results.
+
+Inputs:
+- data/results/coincident_events.csv
+
+Outputs:
+- figures/*.png (histograms and scatter plots)
+"""
+
 from pathlib import Path
 import logging
 

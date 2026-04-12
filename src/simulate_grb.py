@@ -1,3 +1,13 @@
+"""Simulate GRB trigger events and write them to CSV.
+
+Inputs:
+- n: number of simulated GRB events
+- t0: starting GPS time in seconds
+
+Outputs:
+- data/simulated/grb_triggers.csv
+"""
+
 from pathlib import Path
 import logging
 

@@ -1,3 +1,13 @@
+"""Find GW-GRB coincidences and compute ranking statistics.
+
+Inputs:
+- data/simulated/gw_triggers.csv
+- data/simulated/grb_triggers.csv
+
+Outputs:
+- data/results/coincident_events.csv
+"""
+
 from pathlib import Path
 import logging
 
