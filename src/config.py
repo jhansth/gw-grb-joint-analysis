@@ -1,4 +1,4 @@
-"""Central configuration for thresholds, distributions, and priors."""
+﻿"""Central configuration for thresholds, distributions, and priors."""
 
 # Time coincidence window (seconds)
 DELTA_T = 5.0
@@ -21,7 +21,7 @@ FLUENCE_LOGNORM_SIGMA = 0.5
 # A fraction of GRBs are tied to GW events with small time/sky offsets.
 ENABLE_CORRELATED_GRB = True
 CORRELATED_GRB_FRACTION = 0.2
-GRB_DELAY_MU = 1.7
+GRB_DELAY_MU = 0.0
 GRB_DELAY_SIGMA = 0.5
 GRB_SKY_SIGMA_DEG = 2.0
 

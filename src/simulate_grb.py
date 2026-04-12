@@ -48,7 +48,7 @@ def simulate_grb_events(
     t0=1.126e9,
     gw_events=None,
     correlated_fraction=0.0,
-    delay_mu=1.7,
+    delay_mu=0.0,
     delay_sigma=0.5,
     sky_sigma_deg=2.0
 ):
