@@ -14,7 +14,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-import config
+from src import config
 
 
 def _offset_sky(ra, dec, sigma_rad, rng):

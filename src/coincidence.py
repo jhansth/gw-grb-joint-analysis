@@ -14,7 +14,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-import config
+from src import config
 
 
 def angular_distance(ra1, dec1, ra2, dec2):

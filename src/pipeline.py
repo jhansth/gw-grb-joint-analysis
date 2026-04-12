@@ -15,13 +15,11 @@ from pathlib import Path
 
 import numpy as np
 
-import config
-from simulate_gw import simulate_gw_events
-from simulate_grb import simulate_grb_events
-from coincidence import build_coincidence_table
-from statistics import compute_summary_stats, write_summary
-import plotting
-import analysis_plots
+from src import config, plotting, analysis_plots
+from src.simulate_gw import simulate_gw_events
+from src.simulate_grb import simulate_grb_events
+from src.coincidence import build_coincidence_table
+from src.statistics import compute_summary_stats, write_summary
 
 
 def parse_args():

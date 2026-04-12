@@ -15,7 +15,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-import config
+from src import config
 
 
 def ranking_statistic(p_signal, p_noise):

@@ -16,7 +16,7 @@ import pandas as pd
 import healpy as hp
 import matplotlib.pyplot as plt
 
-import config
+from src import config
 
 DEFAULT_NSIDE = 64
 FIG_DIR = Path("figures")
