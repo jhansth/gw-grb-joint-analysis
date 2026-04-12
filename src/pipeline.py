@@ -24,9 +24,7 @@ from src.statistics import compute_summary_stats, write_summary
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run the GW-GRB simulation pipeline.")
-    parser.add_argument("--n-gw", type=int, default=1cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
-bash run_pipeline.sh
-00, help="Number of GW triggers")
+    parser.add_argument("--n-gw", type=int, default=100, help="Number of GW triggers")
     parser.add_argument("--n-grb", type=int, default=500, help="Number of GRB triggers")
     parser.add_argument("--t0", type=float, default=1.126e9, help="Start GPS time (seconds)")
     parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
@@ -47,7 +45,6 @@ def main():
     data_res.mkdir(parents=True, exist_ok=True)
 
     gw = simulate_gw_events(n=args.n_gw, t0=args.t0)
-
     grb = simulate_grb_events(
         n=args.n_grb,
         t0=args.t0,
@@ -57,6 +54,7 @@ def main():
         delay_sigma=config.GRB_DELAY_SIGMA,
         sky_sigma_deg=config.GRB_SKY_SIGMA_DEG
     )
+
     gw_path = data_sim / "gw_triggers.csv"
     grb_path = data_sim / "grb_triggers.csv"
     gw.to_csv(gw_path, index=False)

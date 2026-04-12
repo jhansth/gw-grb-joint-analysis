@@ -135,8 +135,9 @@ bash run_pipeline.sh
 
 Run the pipeline in Python (optional)
 ```bash
-python -m src.pipeline --n-gw 1000 --n-grb 500 --seed 123
+python -m src.pipeline --n-gw 100 --n-grb 500 --seed 123
 ```
+Defaults are `n-gw=100` and `n-grb=500` if you omit flags.
 
 Run individual scripts
 ```bash

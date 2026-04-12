@@ -75,7 +75,7 @@ def simulate_grb_events(
 
     n_uncorr = n - n_corr
 
-    # Uncorrelated GRBs (background)
+    # Uncorrelated GRBs (background population)
     uncorr_times = t0 + rng.uniform(0, 1e4, n_uncorr)
     uncorr_ra = rng.uniform(0, 2 * np.pi, n_uncorr)
     uncorr_dec = rng.uniform(-np.pi / 2, np.pi / 2, n_uncorr)
@@ -88,6 +88,7 @@ def simulate_grb_events(
     time_offsets = np.array([])
 
     if n_corr > 0:
+        # Correlated GRBs: derive from GW events with small time/sky offsets
         gw_sample = gw_events.sample(n=n_corr, replace=False, random_state=None)
         gw_ra = gw_sample["ra"].to_numpy()
         gw_dec = gw_sample["dec"].to_numpy()

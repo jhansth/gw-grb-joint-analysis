@@ -28,6 +28,8 @@ Columns:
 
 ### `data/results/coincident_events.csv`
 Each row is a GW-GRB pair that passes the coincidence thresholds.
+Note: the number of coincidence pairs can exceed the number of GW events
+because a single GW can match multiple GRBs (and vice versa).
 
 Columns:
 - `gw_event_id`: GW trigger ID
