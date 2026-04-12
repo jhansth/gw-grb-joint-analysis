@@ -24,7 +24,9 @@ from src.statistics import compute_summary_stats, write_summary
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run the GW-GRB simulation pipeline.")
-    parser.add_argument("--n-gw", type=int, default=1000, help="Number of GW triggers")
+    parser.add_argument("--n-gw", type=int, default=1cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
+bash run_pipeline.sh
+00, help="Number of GW triggers")
     parser.add_argument("--n-grb", type=int, default=500, help="Number of GRB triggers")
     parser.add_argument("--t0", type=float, default=1.126e9, help="Start GPS time (seconds)")
     parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
