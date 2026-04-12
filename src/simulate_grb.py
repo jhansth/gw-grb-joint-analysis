@@ -44,7 +44,7 @@ def _offset_sky(ra, dec, sigma_rad, rng):
 
 
 def simulate_grb_events(
-    n=500,
+    n=360,
     t0=1.126e9,
     gw_events=None,
     correlated_fraction=0.0,
