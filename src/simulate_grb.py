@@ -76,7 +76,7 @@ def simulate_grb_events(
     n_uncorr = n - n_corr
 
     # Uncorrelated GRBs (background population)
-    uncorr_times = t0 + rng.uniform(0, 1e4, n_uncorr)
+    uncorr_times = t0 + rng.uniform(0, 365*24*3600, n_uncorr)
     uncorr_ra = rng.uniform(0, 2 * np.pi, n_uncorr)
     uncorr_dec = rng.uniform(-np.pi / 2, np.pi / 2, n_uncorr)
 
