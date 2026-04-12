@@ -4,7 +4,7 @@
 DELTA_T = 5.0
 
 # Sky coincidence threshold (radians)
-DELTA_OMEGA = 0.2
+DELTA_OMEGA = 0.05
 
 # Overlap kernel widths (Gaussian)
 SIGMA_T = DELTA_T / 2.0
