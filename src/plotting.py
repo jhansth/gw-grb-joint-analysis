@@ -16,8 +16,11 @@ import pandas as pd
 import healpy as hp
 import matplotlib.pyplot as plt
 
+import config
+
 DEFAULT_NSIDE = 64
 FIG_DIR = Path("figures")
+COINC_PATH = Path("data/results/coincident_events.csv")
 
 
 def load_triggers(path):
@@ -50,6 +53,60 @@ def normalize_map(m):
     if total <= 0:
         return m
     return m / total
+
+
+def smooth_map(m, fwhm_deg):
+    """Smooth a HEALPix map with a Gaussian kernel."""
+    if fwhm_deg <= 0:
+        return m
+    return hp.smoothing(m, fwhm=np.deg2rad(fwhm_deg), verbose=False)
+
+
+def theta_phi_from_ra_dec(ra, dec):
+    theta = np.pi / 2 - dec
+    phi = ra
+    return theta, phi
+
+
+def save_overlap_with_coincidences(overlap_map, gw_df, grb_df, outpath, title):
+    """Overlay coincidence pairs on top of an overlap sky map."""
+    if not COINC_PATH.exists():
+        return
+
+    coinc = pd.read_csv(COINC_PATH)
+    if coinc.empty:
+        return
+
+    gw_lookup = gw_df.set_index("event_id")
+    grb_lookup = grb_df.set_index("event_id")
+
+    gw_ra = gw_lookup.loc[coinc["gw_event_id"], "ra"].to_numpy()
+    gw_dec = gw_lookup.loc[coinc["gw_event_id"], "dec"].to_numpy()
+    grb_ra = grb_lookup.loc[coinc["grb_event_id"], "ra"].to_numpy()
+    grb_dec = grb_lookup.loc[coinc["grb_event_id"], "dec"].to_numpy()
+
+    gw_theta, gw_phi = theta_phi_from_ra_dec(gw_ra, gw_dec)
+    grb_theta, grb_phi = theta_phi_from_ra_dec(grb_ra, grb_dec)
+
+    # Quick plausibility summary: overlap values at coincidence points
+    gw_pix = hp.ang2pix(DEFAULT_NSIDE, gw_theta, gw_phi)
+    grb_pix = hp.ang2pix(DEFAULT_NSIDE, grb_theta, grb_phi)
+    overlap_vals = np.concatenate([overlap_map[gw_pix], overlap_map[grb_pix]])
+    if overlap_vals.size > 0:
+        logging.info(
+            "Mean overlap at coincidence points: %.4g",
+            float(np.mean(overlap_vals))
+        )
+
+    hp.mollview(overlap_map, title=title, unit="probability")
+    hp.projscatter(gw_theta, gw_phi, s=35, c="red", marker="o", label="GW coincidences")
+    hp.projscatter(grb_theta, grb_phi, s=35, c="blue", marker="x", label="GRB coincidences")
+    hp.graticule()
+
+    ax = plt.gca()
+    ax.legend(loc="lower left")
+    plt.savefig(outpath, dpi=200, bbox_inches="tight")
+    plt.close()
 
 
 def save_mollview(m, title, outpath, unit="counts"):
@@ -114,7 +171,7 @@ def main():
     save_mollview(m_gw, "GW Triggers (density)", FIG_DIR / "gw_density.png")
     save_mollview(m_grb, "GRB Triggers (density)", FIG_DIR / "grb_density.png")
 
-    # 1b) Joint/overlap map using normalized density product
+    # 1b) Joint/overlap map using normalized density product (point-based)
     gw_prob = normalize_map(m_gw)
     grb_prob = normalize_map(m_grb)
     overlap = gw_prob * grb_prob
@@ -125,6 +182,41 @@ def main():
         "GW x GRB Overlap (normalized product)",
         FIG_DIR / "gw_grb_overlap.png",
         unit="probability"
+    )
+
+    # 1c) Smoothed maps (reflect GW large maps vs GRB small maps)
+    gw_smooth = smooth_map(m_gw, config.GW_SKY_SMOOTH_FWHM_DEG)
+    grb_smooth = smooth_map(m_grb, config.GRB_SKY_SMOOTH_FWHM_DEG)
+    save_mollview(
+        gw_smooth,
+        f"GW Density (smoothed, {config.GW_SKY_SMOOTH_FWHM_DEG} deg)",
+        FIG_DIR / "gw_density_smoothed.png"
+    )
+    save_mollview(
+        grb_smooth,
+        f"GRB Density (smoothed, {config.GRB_SKY_SMOOTH_FWHM_DEG} deg)",
+        FIG_DIR / "grb_density_smoothed.png"
+    )
+
+    gw_smooth_prob = normalize_map(gw_smooth)
+    grb_smooth_prob = normalize_map(grb_smooth)
+    overlap_smooth = gw_smooth_prob * grb_smooth_prob
+    if np.sum(overlap_smooth) > 0:
+        overlap_smooth = overlap_smooth / np.sum(overlap_smooth)
+    save_mollview(
+        overlap_smooth,
+        "GW x GRB Overlap (smoothed)",
+        FIG_DIR / "gw_grb_overlap_smoothed.png",
+        unit="probability"
+    )
+
+    # 1d) Overlay coincidences on overlap map for plausibility check
+    save_overlap_with_coincidences(
+        overlap_smooth,
+        gw_df,
+        grb_df,
+        FIG_DIR / "gw_grb_overlap_with_coincidences.png",
+        "GW-GRB Overlap + Coincidences"
     )
 
     # 2) Points colored by SNR / fluence

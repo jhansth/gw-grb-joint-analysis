@@ -41,12 +41,7 @@ cd /mnt/c/Users/NextGenn/Research/PP/gw-grb-joint-analysis
 bash run_pipeline.sh
 ```
 This runs:
-- `src/simulate_grb.py`
-- `src/simulate_gw.py`
-- `src/coincidence.py`
-- `src/statistics.py`
-- `src/plotting.py`
-- `src/analysis_plots.py`
+- `python -m src.pipeline` (which internally runs all steps)
 
 Figures are saved to `figures/`.
 
@@ -81,6 +76,10 @@ jupyter notebook notebooks/exploratory_analysis.ipynb
 - `gw_density.png`: GW-only density map
 - `grb_density.png`: GRB-only density map
 - `gw_grb_overlap.png`: overlap map (normalized density product)
+- `gw_density_smoothed.png`: GW density smoothed (large localization)
+- `grb_density_smoothed.png`: GRB density smoothed (small localization)
+- `gw_grb_overlap_smoothed.png`: overlap using smoothed maps
+- `gw_grb_overlap_with_coincidences.png`: overlap with coincidence points
 - `gw_points_snr.png`: GW points colored by SNR
 - `grb_points_fluence.png`: GRB points colored by fluence
 - `gw_grb_publication.png`: combined GW+GRB points

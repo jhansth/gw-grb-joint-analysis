@@ -47,7 +47,16 @@ def main():
     data_res.mkdir(parents=True, exist_ok=True)
 
     gw = simulate_gw_events(n=args.n_gw, t0=args.t0)
-    grb = simulate_grb_events(n=args.n_grb, t0=args.t0)
+
+    grb = simulate_grb_events(
+        n=args.n_grb,
+        t0=args.t0,
+        gw_events=gw if config.ENABLE_CORRELATED_GRB else None,
+        correlated_fraction=config.CORRELATED_GRB_FRACTION,
+        delay_mu=config.GRB_DELAY_MU,
+        delay_sigma=config.GRB_DELAY_SIGMA,
+        sky_sigma_deg=config.GRB_SKY_SIGMA_DEG
+    )
     gw_path = data_sim / "gw_triggers.csv"
     grb_path = data_sim / "grb_triggers.csv"
     gw.to_csv(gw_path, index=False)

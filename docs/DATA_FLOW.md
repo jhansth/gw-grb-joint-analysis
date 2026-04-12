@@ -32,3 +32,4 @@ GW catalog + GRB catalog
 - Overlap is approximated with Gaussian kernels in time and sky.
 - Noise rates are estimated from the simulated time span.
 - Coincidence is defined by fixed thresholds `DELTA_T` and `DELTA_OMEGA`.
+- A fraction of GRBs can be correlated to GW events with small time/sky offsets.

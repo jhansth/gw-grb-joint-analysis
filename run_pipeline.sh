@@ -18,11 +18,6 @@ fi
 
 cd "$ROOT_DIR"
 
-python src/simulate_grb.py
-python src/simulate_gw.py
-python src/coincidence.py
-python src/statistics.py
-python src/plotting.py
-python src/analysis_plots.py
+python -m src.pipeline
 
 echo "Pipeline complete. Figures saved to $ROOT_DIR/figures"

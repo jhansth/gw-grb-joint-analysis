@@ -19,6 +19,10 @@ Columns:
 - `fluence`: simulated fluence (arbitrary units in this toy model)
 - `ra`: right ascension (radians)
 - `dec`: declination (radians)
+- `is_correlated`: whether this GRB was tied to a GW event (True/False)
+- `parent_gw_id`: GW event ID if correlated, otherwise empty
+- `time_offset_s`: time delay from GW event (seconds), if correlated
+- `sky_offset_rad`: angular offset from GW event (radians), if correlated
 
 ## Coincidence results
 
@@ -68,6 +72,10 @@ This file is a small report with:
 - `gw_density.png`: GW-only density map
 - `grb_density.png`: GRB-only density map
 - `gw_grb_overlap.png`: overlap map from normalized density product
+- `gw_density_smoothed.png`: GW density map smoothed with large kernel
+- `grb_density_smoothed.png`: GRB density map smoothed with small kernel
+- `gw_grb_overlap_smoothed.png`: overlap map using smoothed densities
+- `gw_grb_overlap_with_coincidences.png`: overlap map with coincidence points
 - `gw_points_snr.png`: GW triggers colored by SNR
 - `grb_points_fluence.png`: GRB triggers colored by fluence
 - `gw_grb_publication.png`: combined GW+GRB points
