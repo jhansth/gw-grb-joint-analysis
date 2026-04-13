@@ -52,7 +52,8 @@ def main():
         correlated_fraction=config.CORRELATED_GRB_FRACTION,
         delay_mu=config.GRB_DELAY_MU,
         delay_sigma=config.GRB_DELAY_SIGMA,
-        sky_sigma_deg=config.GRB_SKY_SIGMA_DEG
+        sky_sigma_deg=config.GRB_SKY_SIGMA_DEG,
+        seed=args.seed
     )
 
     gw_path = data_sim / "gw_triggers.csv"

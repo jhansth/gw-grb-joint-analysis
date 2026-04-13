@@ -15,17 +15,20 @@ import numpy as np
 import pandas as pd
 
 
-def simulate_gw_events(n=52, t0=1.126e9):
+def simulate_gw_events(n=52, t0=1.126e9, seed=None):
     """Simulate GW triggers with simple distributions.
 
     Args:
         n: number of simulated events.
         t0: GPS start time (seconds).
+        seed: random seed for reproducibility.
 
     Returns:
         DataFrame with columns: event_id, time_gps, snr, ra, dec.
         ra/dec are in radians and snr is dimensionless.
     """
+    if seed is not None:
+        np.random.seed(seed)
     times = t0 + np.sort(np.random.uniform(0, 365*24*3600, n))
     snr = np.random.normal(10, 2, n)
     ra = np.random.uniform(0, 2*np.pi, n)

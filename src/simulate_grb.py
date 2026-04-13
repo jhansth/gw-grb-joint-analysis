@@ -50,13 +50,15 @@ def simulate_grb_events(
     correlated_fraction=0.0,
     delay_mu=0.0,
     delay_sigma=0.5,
-    sky_sigma_deg=2.0
+    sky_sigma_deg=2.0,
+    seed=None
 ):
     """Simulate GRB triggers with simple distributions.
 
     Args:
         n: number of simulated events.
         t0: GPS start time (seconds).
+        seed: random seed for reproducibility.
 
     If gw_events is provided, a fraction of GRBs are correlated to GW
     events with small time/sky offsets.
@@ -65,7 +67,7 @@ def simulate_grb_events(
         DataFrame with columns: event_id, time_gps, fluence, ra, dec,
         plus optional diagnostic columns for correlated events.
     """
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(seed)
     sigma_rad = np.deg2rad(sky_sigma_deg)
 
     n_corr = 0
@@ -89,7 +91,7 @@ def simulate_grb_events(
 
     if n_corr > 0:
         # Correlated GRBs: derive from GW events with small time/sky offsets
-        gw_sample = gw_events.sample(n=n_corr, replace=False, random_state=None)
+        gw_sample = gw_events.sample(n=n_corr, replace=False, random_state=seed)
         gw_ra = gw_sample["ra"].to_numpy()
         gw_dec = gw_sample["dec"].to_numpy()
         gw_time = gw_sample["time_gps"].to_numpy()
